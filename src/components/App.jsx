@@ -14,6 +14,14 @@ export class App extends Component {
     ],
     filter: '',
   }
+  componentDidMount() {
+    if (localStorage.getItem('contacts')) this.setState({ contacts:JSON.parse(localStorage.getItem('contacts'))})
+   }
+  componentDidUpdate(_, prevstate) {
+    if (prevstate.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem('contacts',JSON.stringify(this.state.contacts))
+    }
+  }
       filteredContacts() {
         const { contacts,filter } = this.state
         if (!filter.length) {
